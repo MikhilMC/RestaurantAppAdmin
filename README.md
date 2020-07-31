@@ -44,6 +44,8 @@ The database used here is **Restaurant**. The collections used are:
 
 - [ ] Get the details of today's sale report.
 
-- [ ] Get notification when each order is placed
+- [ ] Get notification when each order is placed.
+
+- [ ] Implement image uploading to server using GridFS
 
 
