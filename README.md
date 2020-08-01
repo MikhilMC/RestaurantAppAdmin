@@ -1,6 +1,6 @@
 # RestaurantAppAdmin
 
-This web app is for managing admin processes of the web app [RestaurantApp](https://github.com/MikhilMC/RestaurantApp). I havenn't implemented not much of features in this web app yet.
+This web app is for managing admin processes of the web app [RestaurantApp](https://github.com/MikhilMC/RestaurantApp). I havenn't implemented not much of features in this web app yet. Please add food items and create today's menu here first to ensure proper working of **RestaurantApp**.
 
 ## Used Technologies
 
