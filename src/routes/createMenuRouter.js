@@ -6,12 +6,12 @@ const createMenuRouter = express.Router()
 
 function router(nav) {
   let menu = []
-    
+
   createMenuRouter.get('/', (req, res) => {
-      MenuToday.find({}, (error, menuItems) => {
+    MenuToday.find({}, (error, menuItems) => {
       if (error) {
         console.log(error);
-      } else if (!menuItems || menuItems.length === 0) {
+      } else if ((!menuItems || menuItems.length === 0) && menu.length === 0) {
         FoodItems.find({}, (err, foodItems) => {
           if (err) {
             console.log(err);
@@ -19,36 +19,49 @@ function router(nav) {
             foodItems.forEach(item => {
               menu.push(item.name);
             });
+            console.log(menu);
+
+            res.render('createMenu', {
+              nav,
+              title: "Create Today's Menu",
+              isAnyAvailable: false,
+              menuItems: [],
+              menu
+            });            
           }
         });
         
-        res.render('createMenu', {
-          nav,
-          title: "Create Today's Menu",
-          isAnyAvailable: false,
-          menuItems: [],
-          menu
-        });
       } else {
-        res.render('createMenu', {
-          nav,
-          title: "Create Today's Menu",
-          isAnyAvailable: true,
-          menuItems,
-          menu
+        FoodItems.find({}, (err, items) => {
+          if (err) {
+            console.log(err);
+          } else {
+            items.forEach((item)=>{
+              menu.push(item.name)
+            })
+            console.log(menu)
+            res.render('createMenu', {
+              nav,
+              title: "Create Today's Menu",
+              isAnyAvailable: true,
+              menuItems,
+              menu
+            });            
+          }
         });
+        
       }
     });
   });
 
   createMenuRouter.post('/', (req, res) => {
-    FoodItems.findOne({name: req.body.name}, 'name isItVeg measurement quantity unit price imageURL -_id', (err, item) => {
+    FoodItems.findOne({ name: req.body.name }, 'name isItVeg measurement quantity unit price imageURL -_id', (err, item) => {
       if (err) {
         console.log(err);
       } else {
         let newItem = {};
         let pos;
-        for(let i=0; i<menu.length; i++) {
+        for (let i = 0; i < menu.length; i++) {
           if (menu[i] === req.body.name) {
             pos = i;
             break;
