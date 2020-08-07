@@ -36,6 +36,7 @@ function router(nav) {
           if (err) {
             console.log(err);
           } else {
+            menu = [];
             items.forEach((item)=>{
               menu.push(item.name)
             })
